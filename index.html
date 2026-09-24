@@ -1,0 +1,1257 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Revenue &amp; Account Management Meeting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F1F5F6; --surface:#FFFFFF; --surface-2:#E9EFF1; --surface-3:#F7FAFB;
+  --line:#D6E0E4; --line-2:#BDCBD1;
+  --ink:#0E1A20; --ink-2:#42565F; --ink-3:#6E828C;
+  --accent:#0E6E75; --accent-2:#0B565C; --accent-soft:#DCEDEE; --on-accent:#FFFFFF;
+  --flame:#B8482A; --flame-soft:#FBE6DF;
+  --crit:#A93526; --crit-soft:#FAE4E0;
+  --warn:#96660F; --warn-soft:#FAEED8;
+  --good:#256A4E; --good-soft:#DDEEE4;
+  --shadow:0 1px 2px rgba(14,26,32,.06), 0 8px 24px -16px rgba(14,26,32,.30);
+  --r:10px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A1216; --surface:#111C22; --surface-2:#18262D; --surface-3:#0E181D;
+    --line:#22353E; --line-2:#31474F;
+    --ink:#E7EEF1; --ink-2:#A9BAC2; --ink-3:#7C8F99;
+    --accent:#3AA9A4; --accent-2:#57C2BC; --accent-soft:#10312F; --on-accent:#04191A;
+    --flame:#E07B54; --flame-soft:#33201A;
+    --crit:#E4796A; --crit-soft:#331D1A;
+    --warn:#DDA648; --warn-soft:#2E2415;
+    --good:#5DBC8D; --good-soft:#152C22;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.9);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A1216; --surface:#111C22; --surface-2:#18262D; --surface-3:#0E181D;
+  --line:#22353E; --line-2:#31474F;
+  --ink:#E7EEF1; --ink-2:#A9BAC2; --ink-3:#7C8F99;
+  --accent:#3AA9A4; --accent-2:#57C2BC; --accent-soft:#10312F; --on-accent:#04191A;
+  --flame:#E07B54; --flame-soft:#33201A;
+  --crit:#E4796A; --crit-soft:#331D1A;
+  --warn:#DDA648; --warn-soft:#2E2415;
+  --good:#5DBC8D; --good-soft:#152C22;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.9);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:14px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:"Archivo",system-ui,sans-serif;margin:0;text-wrap:balance}
+button,input,select,textarea{font:inherit;color:inherit}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- command bar ---------- */
+.topwrap{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line)}
+.topbar{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;padding:12px 20px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.mark{width:30px;height:30px;border-radius:8px;background:var(--accent);color:var(--on-accent);
+  display:grid;place-items:center;font-family:"Archivo";font-weight:700;font-size:12px;letter-spacing:.01em;flex:none}
+.brand h1{font-size:15px;font-weight:700;letter-spacing:-.015em;line-height:1.2}
+.brand span{display:block;font-family:"Public Sans";font-size:11px;font-weight:500;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+.metas{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-left:auto}
+.field{display:flex;align-items:center;gap:6px;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;padding:4px 8px}
+.field label{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.field input,.field select{border:0;background:transparent;padding:2px 0}
+.field input[type="date"]{width:124px}
+.field.track select{font-weight:600;width:168px;cursor:pointer}
+.statuspill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:600;letter-spacing:.03em}
+.statuspill.live{background:var(--good-soft);color:var(--good)}
+.statuspill.live i{width:6px;height:6px;border-radius:50%;background:var(--good);display:inline-block}
+.statuspill.none{background:var(--surface-2);color:var(--ink-3)}
+.btn{border:1px solid var(--line-2);background:var(--surface);color:var(--ink);border-radius:8px;
+  padding:6px 11px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .12s,border-color .12s}
+.btn:hover{background:var(--surface-2);border-color:var(--ink-3)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn:disabled:hover{background:var(--surface);border-color:var(--line-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--ink-2)}
+.btn.ghost:hover{background:var(--surface-2);color:var(--ink)}
+.btn.sm{padding:4px 9px;font-size:12px}
+.btn.danger:hover{border-color:var(--crit);color:var(--crit);background:var(--crit-soft)}
+
+/* ---------- step rail ---------- */
+.rail{display:flex;gap:2px;padding:0 12px;overflow-x:auto;scrollbar-width:thin}
+.step{position:relative;display:flex;align-items:center;gap:9px;background:none;border:0;cursor:pointer;
+  padding:9px 14px 11px;color:var(--ink-3);white-space:nowrap;border-bottom:2px solid transparent}
+.step:hover{color:var(--ink-2)}
+.step .n{width:19px;height:19px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;flex:none}
+.step .lbl{font-family:"Archivo";font-weight:600;font-size:13px;letter-spacing:-.01em}
+.step.active{color:var(--ink);border-bottom-color:var(--accent)}
+.step.active .n{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.step.done .n{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.step.done .lbl{color:var(--ink-2)}
+.railprog{height:2px;background:var(--line)}
+.railprog i{display:block;height:100%;background:var(--accent);transition:width .2s}
+
+/* ---------- stage ---------- */
+.stage{max-width:1360px;margin:0 auto;padding:20px 20px 96px}
+.panel{display:none}
+.panel.on{display:block}
+.phead{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 18px;margin-bottom:14px}
+.phead h2{font-size:22px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.phead p{margin:3px 0 0;color:var(--ink-3);font-size:13px;max-width:64ch}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.card + .card{margin-top:16px}
+.card > header{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.card > header h3{font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+.card > header .sp{margin-left:auto;display:flex;gap:8px}
+.cbody{padding:14px}
+.hint{color:var(--ink-3);font-size:12px}
+
+/* ---------- inputs ---------- */
+.in{width:100%;border:1px solid transparent;background:transparent;border-radius:6px;padding:6px 7px;
+  transition:border-color .12s,background .12s}
+.in:hover{border-color:var(--line)}
+.in:focus{border-color:var(--accent);background:var(--surface-3);outline:none}
+.in::placeholder{color:var(--ink-3);opacity:.75}
+.in:disabled{opacity:.55;cursor:not-allowed}
+textarea.in{resize:vertical;min-height:36px;overflow:hidden;line-height:1.55}
+select.in{appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 13px) 52%,calc(100% - 9px) 52%;background-size:4px 4px,4px 4px;background-repeat:no-repeat;padding-right:24px}
+.bigNote{width:100%;min-height:104px;border:1px solid var(--line);background:var(--surface-3);border-radius:8px;
+  padding:11px 12px;resize:vertical;line-height:1.6}
+.bigNote:focus{border-color:var(--accent);outline:none}
+
+/* ---------- pills ---------- */
+.pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:2px 9px;font-size:11px;
+  font-weight:600;letter-spacing:.03em;white-space:nowrap;border:1px solid transparent}
+.p-crit{background:var(--crit-soft);color:var(--crit);border-color:color-mix(in srgb,var(--crit) 30%,transparent)}
+.p-warn{background:var(--warn-soft);color:var(--warn);border-color:color-mix(in srgb,var(--warn) 30%,transparent)}
+.p-good{background:var(--good-soft);color:var(--good);border-color:color-mix(in srgb,var(--good) 30%,transparent)}
+.p-acc{background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.p-flame{background:var(--flame-soft);color:var(--flame);border-color:color-mix(in srgb,var(--flame) 30%,transparent)}
+.p-mute{background:var(--surface-2);color:var(--ink-3);border-color:var(--line)}
+
+/* ---------- issues ---------- */
+.issues{display:flex;flex-direction:column;gap:10px}
+.issue{position:relative;border:1px solid var(--line);border-radius:8px;background:var(--surface-3);
+  padding:10px 12px 10px 15px;display:grid;gap:8px}
+.issue::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:8px 0 0 8px;background:var(--line-2)}
+.issue.pri-High::before{background:var(--crit)}
+.issue.pri-Medium::before{background:var(--warn)}
+.issue.pri-Low::before{background:var(--line-2)}
+.issue.resolved{opacity:.62}
+.issue.resolved .itext{text-decoration:line-through;text-decoration-color:var(--ink-3)}
+.issue.pri-High:not(.resolved){background:color-mix(in srgb,var(--crit-soft) 55%,var(--surface));border-color:color-mix(in srgb,var(--crit) 22%,var(--line))}
+.irow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.irow > .grow{flex:1 1 220px;min-width:160px}
+.ifield{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:1px 4px 1px 8px}
+.ifield > b{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.ifield .in{padding:5px 6px}
+.ifield select.in{min-width:104px}
+.del{border:1px solid transparent;background:transparent;color:var(--ink-3);border-radius:6px;cursor:pointer;
+  width:26px;height:26px;display:grid;place-items:center;flex:none;font-size:14px;line-height:1}
+.del:hover{background:var(--crit-soft);color:var(--crit);border-color:color-mix(in srgb,var(--crit) 30%,transparent)}
+
+/* ---------- tables ---------- */
+.tscroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:720px}
+thead th{font-family:"Archivo";font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--ink-3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;background:var(--surface-2)}
+tbody td{padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr.sev-crit td:first-child{box-shadow:inset 3px 0 0 var(--crit)}
+tbody tr.sev-warn td:first-child{box-shadow:inset 3px 0 0 var(--warn)}
+tbody tr:hover td{background:color-mix(in srgb,var(--surface-2) 55%,transparent)}
+td.num .in,th.num{text-align:right}
+td.num .in{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.cell{display:flex;flex-direction:column;gap:2px}
+.cell .flag{padding-left:7px;font-size:11px;font-weight:600;display:flex;gap:6px;align-items:center;min-height:15px}
+.money,.pct{display:flex;align-items:center;justify-content:flex-end;gap:1px}
+.money > s,.pct > s{color:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:12.5px;text-decoration:none;flex:none}
+.money .in{width:auto;flex:0 1 118px;padding-left:2px}
+.pct .in{width:auto;flex:0 1 74px;padding-right:2px}
+.up{color:var(--good)} .down{color:var(--crit)} .flat{color:var(--ink-3)}
+td.act{width:34px}
+.empty{padding:22px 14px;text-align:center;color:var(--ink-3);font-size:13px}
+
+/* pricing groups */
+.grp1{background:var(--surface-2)}
+.grp2{background:var(--accent-soft)}
+thead tr.groups th{padding:6px 10px;font-size:10px;letter-spacing:.12em;border-bottom:1px solid var(--line)}
+thead tr.groups th.grp1{color:var(--ink-2)}
+thead tr.groups th.grp2{color:var(--accent)}
+thead tr.cols th.g2,tbody td.g2{background:color-mix(in srgb,var(--accent-soft) 45%,transparent)}
+tbody tr:hover td.g2{background:color-mix(in srgb,var(--accent-soft) 75%,transparent)}
+select.dec{font-weight:600;letter-spacing:.04em;border:1px solid var(--line);background:var(--surface);border-radius:6px}
+select.dec.d-HOLD{color:var(--ink-2)}
+select.dec.d-INCREASE{color:var(--good);background:var(--good-soft);border-color:color-mix(in srgb,var(--good) 30%,transparent)}
+select.dec.d-REDUCE{color:var(--warn);background:var(--warn-soft);border-color:color-mix(in srgb,var(--warn) 30%,transparent)}
+select.dec.d-MONITOR{color:var(--accent);background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+select.dec.d-PROMOTION{color:var(--flame);background:var(--flame-soft);border-color:color-mix(in srgb,var(--flame) 30%,transparent)}
+select.st{font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:6px}
+select.st.s-Pending{color:var(--warn);background:var(--warn-soft)}
+select.st.s-InProgress{color:var(--accent);background:var(--accent-soft)}
+select.st.s-Completed{color:var(--good);background:var(--good-soft)}
+select.st.s-CarriedForward{color:var(--flame);background:var(--flame-soft)}
+tr.rowdone{opacity:.6}
+
+/* ---------- property focus notes ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.chip{border:1px solid var(--line-2);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:12.5px;
+  font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--ink-3)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--flame);display:none}
+.chip.has i{display:block}
+.chip.on i{background:var(--on-accent)}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.q{display:flex;flex-direction:column;gap:4px}
+.q > label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.q .in{border:1px solid var(--line);background:var(--surface-3)}
+.q.span2{grid-column:span 2}
+@media(max-width:640px){.q.span2{grid-column:span 1}}
+.qdec .in{border-color:color-mix(in srgb,var(--accent) 35%,var(--line));background:var(--accent-soft)}
+
+/* ---------- summary ---------- */
+.sumhead{background:linear-gradient(180deg,var(--accent-soft),transparent);border:1px solid var(--line);
+  border-radius:var(--r);padding:20px;margin-bottom:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.sumhead h2{font-size:26px;letter-spacing:-.02em}
+.sumhead .kpis{display:flex;gap:22px;margin-left:auto;flex-wrap:wrap}
+.kpi{display:flex;flex-direction:column;gap:1px}
+.kpi b{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:500;letter-spacing:-.02em}
+.kpi span{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+.sumcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.sumcard h3{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);
+  padding:11px 14px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.sumcard ul{list-style:none;margin:0;padding:6px 0}
+.sumcard li{padding:8px 14px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+.sumcard li:last-child{border-bottom:0}
+.sumcard .t{font-weight:600}
+.sumcard .m{color:var(--ink-2);font-size:12.5px}
+.sumcard .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:2px}
+.sumcard .none{padding:14px;color:var(--ink-3);font-size:13px}
+.owners li{flex-direction:row;justify-content:space-between;align-items:center;gap:10px}
+
+/* ---------- footer ---------- */
+.footbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);
+  padding:9px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 -6px 20px -18px rgba(0,0,0,.6)}
+.footbar .now{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.footbar .now b{font-family:"Archivo";font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.footbar .now span{font-size:11px;color:var(--ink-3);letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.footbar .grow{margin-left:auto;display:flex;gap:8px}
+.savechip{font-size:11px;color:var(--ink-3);display:flex;align-items:center;gap:5px}
+.savechip i{width:6px;height:6px;border-radius:50%;background:var(--good)}
+
+/* ---------- modal ---------- */
+.scrim{position:fixed;inset:0;background:rgba(8,16,20,.55);z-index:100;display:none;place-items:center;padding:20px}
+.scrim.on{display:grid}
+.modal{background:var(--surface);border:1px solid var(--line);border-radius:12px;max-width:560px;width:100%;
+  max-height:82vh;overflow:auto;box-shadow:0 20px 60px -20px rgba(0,0,0,.5)}
+.modal h3{font-size:17px;padding:16px 18px 0}
+.modal .mb{padding:10px 18px 4px;color:var(--ink-2);font-size:13.5px}
+.modal .mf{display:flex;gap:8px;justify-content:flex-end;padding:14px 18px 16px}
+.modal ul{margin:8px 0 0;padding-left:18px}
+.modal li{margin:3px 0}
+.histlist{display:flex;flex-direction:column;gap:8px;padding:4px 18px 8px}
+.hist{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hist b{font-family:"IBM Plex Mono",monospace;font-size:13px}
+.hist .c{color:var(--ink-3);font-size:12px}
+.hist .btn{margin-left:auto}
+.banner{background:var(--surface);border:1px dashed var(--line-2);border-radius:var(--r);padding:26px;text-align:center;color:var(--ink-2)}
+.banner b{display:block;font-size:16px;color:var(--ink);margin-bottom:6px}
+@media(max-width:720px){
+  .stage{padding:16px 12px 100px}
+  .topbar{padding:10px 12px;gap:10px}
+  .metas{width:100%;margin-left:0}
+  .phead h2{font-size:19px}
+}
+</style>
+
+<div class="topwrap">
+  <div class="topbar">
+    <div class="brand">
+      <div class="mark">R&amp;A</div>
+      <div>
+        <h1 id="brandTitle">Revenue &amp; Account Management Meeting</h1>
+        <span>Weekly</span>
+      </div>
+    </div>
+    <div class="metas">
+      <div class="field track"><label for="trackSel">Meeting</label>
+        <select id="trackSel">
+          <option value="dave">Dave Weekly Meeting</option>
+          <option value="jessica">Jessica Weekly Meeting</option>
+          <option value="lais">Lais Weekly Meeting</option>
+        </select>
+      </div>
+      <div class="field"><label for="mDate">Date</label><input id="mDate" type="date"></div>
+      <span class="statuspill none" id="statusPill">No active meeting</span>
+      <button class="btn primary sm" id="btnStart">Start Meeting</button>
+      <button class="btn sm" id="btnSave">Save</button>
+      <button class="btn sm danger" id="btnStop">Stop Meeting</button>
+      <button class="btn sm" id="btnHistory">History</button>
+    </div>
+  </div>
+  <nav class="rail" id="rail"></nav>
+  <div class="railprog"><i id="railProg"></i></div>
+</div>
+
+<main class="stage" id="stage">
+
+  <!-- 1 ------------------------------------------------------------------ -->
+  <section class="panel" data-panel="0">
+    <div class="phead">
+      <div>
+        <h2>🔥 Account Manager Burning Issues</h2>
+        <p>Capture what each AM brings in. Anything that needs a call goes straight to the decision log — don't work the problem here.</p>
+      </div>
+    </div>
+    <div class="card">
+      <header><h3>Open floor notes</h3><span class="hint">Free typing — saved automatically</span></header>
+      <div class="cbody"><textarea class="bigNote" id="notes" placeholder="Round-robin notes, context, anything raised verbally…"></textarea></div>
+    </div>
+    <div class="card">
+      <header>
+        <h3>Logged issues</h3>
+        <span class="hint" id="issueCount"></span>
+        <span class="sp"><button class="btn primary sm" data-act="add-issue">+ Add Issue</button></span>
+      </header>
+      <div class="cbody"><div class="issues" id="issueList"></div></div>
+    </div>
+  </section>
+
+  <!-- 2 ------------------------------------------------------------------ -->
+  <section class="panel" data-panel="1">
+    <div class="phead">
+      <div>
+        <h2>📊 Top Property Focus</h2>
+        <p>What needs our attention this week, why, and what are we going to do about it?</p>
+      </div>
+    </div>
+    <div class="card">
+      <header>
+        <h3>Performance table</h3>
+        <span class="hint">Flags: YoY decline · low occupancy · booking gap</span>
+        <span class="sp"><button class="btn primary sm" data-act="add-prop">+ Add Property</button></span>
+      </header>
+      <div class="tscroll">
+        <table id="propTable">
+          <thead><tr>
+            <th style="min-width:190px">Unit Name</th>
+            <th class="num" style="min-width:150px">Current Period Revenue</th>
+            <th class="num" style="min-width:150px">Prior Year Revenue</th>
+            <th class="num" style="min-width:130px">Occupancy</th>
+            <th style="min-width:160px">Last Time Booked</th>
+            <th class="act"></th>
+          </tr></thead>
+          <tbody id="propBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <header>
+        <h3>Revenue Discussion / Action</h3>
+        <span class="hint">Pick a property, then work down the four questions</span>
+      </header>
+      <div class="cbody">
+        <div class="chips" id="propChips"></div>
+        <div id="propNotePanel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ------------------------------------------------------------------ -->
+  <section class="panel" data-panel="2">
+    <div class="phead">
+      <div>
+        <h2>💰 Season Pricing</h2>
+        <p>Upcoming season dates that haven't booked. Current situation on the left, the call we make on the right.</p>
+      </div>
+    </div>
+    <div class="card">
+      <header>
+        <h3>Open date review</h3>
+        <span class="hint" id="priceTally"></span>
+        <span class="sp"><button class="btn primary sm" data-act="add-price">+ Add Season Pricing Row</button></span>
+      </header>
+      <div class="tscroll">
+        <table id="priceTable">
+          <thead>
+            <tr class="groups">
+              <th class="grp1" colspan="3">Current / Performance</th>
+              <th class="grp2" colspan="3">Decision / Strategy</th>
+              <th class="act"></th>
+            </tr>
+            <tr class="cols">
+              <th style="min-width:180px">Property / Unit</th>
+              <th style="min-width:170px">Date / Date Range</th>
+              <th class="num" style="min-width:120px">Current Rate</th>
+              <th class="num g2" style="min-width:150px">Market / Competitor</th>
+              <th class="num g2" style="min-width:140px">Recommended</th>
+              <th class="g2" style="min-width:150px">Decision</th>
+              <th class="act"></th>
+            </tr>
+          </thead>
+          <tbody id="priceBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ------------------------------------------------------------------ -->
+  <section class="panel" data-panel="3">
+    <div class="phead">
+      <div>
+        <h2>✅ Decision Log &amp; Previous Meeting Recap</h2>
+        <p>Close the loop on outstanding items first, then lock this week's calls with an owner and a date.</p>
+      </div>
+    </div>
+    <div class="card">
+      <header>
+        <h3>A · Previous meeting recap</h3>
+        <span class="hint" id="prevTally"></span>
+        <span class="sp"><button class="btn sm" data-act="add-prev">+ Add Previous Action</button></span>
+      </header>
+      <div class="tscroll">
+        <table id="prevTable">
+          <thead><tr>
+            <th style="min-width:170px">Property / Topic</th>
+            <th style="min-width:220px">Previous Decision</th>
+            <th style="min-width:130px">Action Owner</th>
+            <th style="min-width:140px">Due Date</th>
+            <th style="min-width:150px">Status</th>
+            <th style="min-width:220px">Result / Update</th>
+            <th class="act"></th>
+          </tr></thead>
+          <tbody id="prevBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <header>
+        <h3>B · Current meeting decision log</h3>
+        <span class="hint">This is the output of the meeting</span>
+        <span class="sp"><button class="btn primary sm" data-act="add-dec">+ Add Decision</button></span>
+      </header>
+      <div class="tscroll">
+        <table id="decTable">
+          <thead><tr>
+            <th style="min-width:180px">Property / Topic</th>
+            <th style="min-width:250px">Decision</th>
+            <th style="min-width:220px">Action Required</th>
+            <th style="min-width:140px">Owner</th>
+            <th style="min-width:145px">Due Date</th>
+            <th class="act"></th>
+          </tr></thead>
+          <tbody id="decBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 ------------------------------------------------------------------ -->
+  <section class="panel" data-panel="4">
+    <div id="summary"></div>
+  </section>
+</main>
+
+<footer class="footbar">
+  <button class="btn" id="btnPrev">← Previous</button>
+  <div class="now"><span id="stepKicker">Section 1 of 4</span><b id="stepName">Burning Issues</b></div>
+  <div class="grow">
+    <span class="savechip" id="saveChip"><i></i> Saved</span>
+    <button class="btn primary" id="btnNext">Next: Top Property Focus →</button>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+"use strict";
+
+const SUPABASE_URL = "https://iuqwyynbhhltgztvqvtl.supabase.co";
+const SUPABASE_KEY = "sb_publishable_8zwF5ZElUrI56b-eRrxHiA__1bqXuSA";
+const sb = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+const TRACKS = [
+  {key:"dave", label:"Dave Weekly Meeting"},
+  {key:"jessica", label:"Jessica Weekly Meeting"},
+  {key:"lais", label:"Lais Weekly Meeting"}
+];
+const STEPS = [
+  {n:"1", label:"Burning Issues", full:"Account Manager Burning Issues"},
+  {n:"2", label:"Top Property Focus", full:"Top Property Focus"},
+  {n:"3", label:"Season Pricing", full:"Season Pricing"},
+  {n:"4", label:"Decision Log", full:"Decision Log & Previous Recap"},
+  {n:"✓", label:"Meeting Complete", full:"Meeting Complete"}
+];
+const PRIORITIES = ["High","Medium","Low"];
+const ISTATUS = ["Open","Resolved"];
+const DECISIONS = ["HOLD","INCREASE","REDUCE","MONITOR","PROMOTION"];
+const PSTATUS = ["Pending","In Progress","Completed","Carried Forward"];
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num = v => { if(v===""||v==null) return null; const n = parseFloat(String(v).replace(/[^0-9.\-]/g,"")); return isNaN(n)?null:n; };
+const money = n => n==null?"":"$"+Number(n).toLocaleString("en-US",{maximumFractionDigits:0});
+const todayISO = () => { const d=new Date(); return new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10); };
+const daysSince = iso => { if(!iso) return null; const t=Date.parse(iso+"T00:00:00"); if(isNaN(t)) return null;
+  return Math.floor((Date.now()-t)/864e5); };
+const fmtDate = iso => { if(!iso) return "—"; const t=Date.parse(iso+"T00:00:00"); if(isNaN(t)) return iso;
+  return new Date(t).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); };
+const opts = (list,v) => list.map(o=>`<option${o===v?" selected":""}>${esc(o)}</option>`).join("");
+const slug = s => String(s).replace(/\s+/g,"");
+const trackLabel = k => (TRACKS.find(t=>t.key===k)||{}).label || k;
+
+/* ---------- state ---------- */
+let state = {
+  track: "dave",
+  meeting: null,        // current meetings row (in_progress) or null
+  issues: [],
+  properties: [],
+  pricing: [],
+  decisionsCurrent: [], // origin_meeting_id === meeting.id
+  decisionsPrev: [],    // outstanding, from earlier meetings
+  activeProp: null,
+  step: 0
+};
+
+/* ---------- save status chip ---------- */
+function chip(mode){
+  const c = $("#saveChip"); if(!c) return;
+  if(mode==="saving") c.innerHTML = '<i style="background:var(--accent)"></i> Saving…';
+  else if(mode==="err") c.innerHTML = '<i style="background:var(--crit)"></i> Save failed';
+  else c.innerHTML = '<i></i> Saved';
+}
+function toastErr(e){ console.error(e); chip("err"); toast(e && e.message ? e.message : "Something went wrong"); }
+
+/* ---------- debounce map (per field) ---------- */
+const timers = new Map();
+function debounced(key, fn, ms){
+  clearTimeout(timers.get(key));
+  timers.set(key, setTimeout(fn, ms));
+}
+
+/* ---------- data access ---------- */
+async function fetchActiveMeeting(track){
+  const {data, error} = await sb.from("meetings").select("*")
+    .eq("track", track).eq("status","in_progress")
+    .order("meeting_date",{ascending:false}).limit(1);
+  if(error) throw error;
+  return data && data[0] ? data[0] : null;
+}
+async function fetchLastCompleted(track, beforeMeetingId){
+  let q = sb.from("meetings").select("*").eq("track", track).eq("status","completed")
+    .order("meeting_date",{ascending:false}).limit(1);
+  const {data, error} = await q;
+  if(error) throw error;
+  return data && data[0] ? data[0] : null;
+}
+async function fetchMeetingChildren(meetingId){
+  const [iss, props, pricing] = await Promise.all([
+    sb.from("issues").select("*").eq("meeting_id", meetingId).order("position"),
+    sb.from("properties").select("*").eq("meeting_id", meetingId).order("position"),
+    sb.from("pricing_rows").select("*").eq("meeting_id", meetingId).order("position")
+  ]);
+  if(iss.error) throw iss.error;
+  if(props.error) throw props.error;
+  if(pricing.error) throw pricing.error;
+  return {issues: iss.data||[], properties: props.data||[], pricing: pricing.data||[]};
+}
+async function fetchDecisions(track, meetingId){
+  const {data, error} = await sb.from("decisions").select("*").eq("track", track).order("created_at");
+  if(error) throw error;
+  const all = data||[];
+  const current = meetingId ? all.filter(d=>d.origin_meeting_id===meetingId) : [];
+  const prev = all.filter(d=> d.status!=="Completed" && d.origin_meeting_id!==meetingId);
+  return {current, prev};
+}
+
+async function loadTrack(track){
+  state.track = track;
+  chip("saving");
+  try{
+    const meeting = await fetchActiveMeeting(track);
+    state.meeting = meeting;
+    if(meeting){
+      const kids = await fetchMeetingChildren(meeting.id);
+      state.issues = kids.issues; state.properties = kids.properties; state.pricing = kids.pricing;
+    } else {
+      state.issues = []; state.properties = []; state.pricing = [];
+    }
+    const decs = await fetchDecisions(track, meeting ? meeting.id : null);
+    state.decisionsCurrent = decs.current; state.decisionsPrev = decs.prev;
+    state.activeProp = state.properties.length ? state.properties[0].id : null;
+    state.step = 0;
+    renderAll();
+    chip("saved");
+  }catch(e){ toastErr(e); }
+}
+
+async function startMeeting(){
+  chip("saving");
+  try{
+    const last = await fetchLastCompleted(state.track);
+    const {data, error} = await sb.from("meetings").insert({
+      track: state.track, meeting_date: todayISO(), status:"in_progress", notes:""
+    }).select().single();
+    if(error) throw error;
+    state.meeting = data;
+    state.issues = []; state.properties = []; state.pricing = [];
+    if(last){
+      const kids = await fetchMeetingChildren(last.id);
+      const openIssues = kids.issues.filter(i=>i.status==="Open");
+      if(openIssues.length){
+        const rows = openIssues.map((it,i)=>({meeting_id:data.id, text:it.text, am:it.am, priority:it.priority, status:"Open", action:it.action, position:i}));
+        const ins = await sb.from("issues").insert(rows).select();
+        if(ins.error) throw ins.error;
+        state.issues = ins.data||[];
+      }
+    }
+    const decs = await fetchDecisions(state.track, data.id);
+    state.decisionsCurrent = decs.current; state.decisionsPrev = decs.prev;
+    state.activeProp = null; state.step = 0;
+    renderAll();
+    chip("saved");
+    toast("Meeting started");
+  }catch(e){ toastErr(e); }
+}
+
+async function stopMeetingConfirmed(){
+  if(!state.meeting) return;
+  chip("saving");
+  try{
+    const {data, error} = await sb.from("meetings").update({status:"completed", updated_at:new Date().toISOString()})
+      .eq("id", state.meeting.id).select().single();
+    if(error) throw error;
+    state.meeting = data;
+    state.step = 4;
+    renderAll();
+    chip("saved");
+  }catch(e){ toastErr(e); }
+}
+
+/* ---------- generic row CRUD ---------- */
+const TABLES = {issues:"issues", properties:"properties", pricing:"pricing_rows", decisionsCurrent:"decisions", decisionsPrev:"decisions"};
+function findItem(list,id){
+  const arr = state[list]; return arr ? arr.find(x=>x.id===id) : null;
+}
+async function updateField(list, id, field, value){
+  const table = TABLES[list];
+  const patch = {[field]: value};
+  if(table==="decisions") patch.updated_at = new Date().toISOString();
+  debounced(list+":"+id+":"+field, async ()=>{
+    chip("saving");
+    try{
+      const {error} = await sb.from(table).update(patch).eq("id", id);
+      if(error) throw error;
+      chip("saved");
+    }catch(e){ toastErr(e); }
+  }, 500);
+}
+async function deleteRow(list, id){
+  const table = TABLES[list];
+  chip("saving");
+  try{
+    const {error} = await sb.from(table).delete().eq("id", id);
+    if(error) throw error;
+    state[list] = state[list].filter(x=>x.id!==id);
+    chip("saved");
+  }catch(e){ toastErr(e); }
+}
+async function insertRow(list, row){
+  const table = TABLES[list];
+  chip("saving");
+  try{
+    const {data, error} = await sb.from(table).insert(row).select().single();
+    if(error) throw error;
+    state[list].push(data);
+    chip("saved");
+    return data;
+  }catch(e){ toastErr(e); return null; }
+}
+
+/* ---------- render: issues ---------- */
+function issueHTML(it){
+  const dis = !state.meeting ? "disabled" : "";
+  return `<div class="issue pri-${esc(it.priority)}${it.status==="Resolved"?" resolved":""}" data-row data-list="issues" data-id="${it.id}">
+    <div class="irow">
+      <textarea class="in itext grow" ${dis} data-list="issues" data-id="${it.id}" data-field="text" rows="1"
+        placeholder="What's the issue?">${esc(it.text)}</textarea>
+      <button class="del" data-act="del" data-list="issues" data-id="${it.id}" title="Delete issue" aria-label="Delete issue">✕</button>
+    </div>
+    <div class="irow">
+      <span class="ifield"><b>AM</b><input class="in" ${dis} style="width:120px" data-list="issues" data-id="${it.id}" data-field="am" value="${esc(it.am)}" placeholder="Name"></span>
+      <span class="ifield"><b>Priority</b><select class="in" ${dis} data-visual="1" data-list="issues" data-id="${it.id}" data-field="priority">${opts(PRIORITIES,it.priority)}</select></span>
+      <span class="ifield"><b>Status</b><select class="in" ${dis} data-visual="1" data-list="issues" data-id="${it.id}" data-field="status">${opts(ISTATUS,it.status)}</select></span>
+      <span class="ifield grow" style="flex:1 1 240px"><b>Action required</b><input class="in" ${dis} data-list="issues" data-id="${it.id}" data-field="action" value="${esc(it.action)}" placeholder="Decision or action needed — or “none”"></span>
+    </div>
+  </div>`;
+}
+function renderIssues(){
+  const el=$("#issueList");
+  el.innerHTML = state.issues.length ? state.issues.map(issueHTML).join("")
+    : `<div class="empty">${state.meeting?"No issues logged yet. Use <b>+ Add Issue</b> as each AM speaks.":"Start this week's meeting to log issues."}</div>`;
+  el.querySelectorAll("textarea").forEach(grow);
+  const open = state.issues.filter(i=>i.status==="Open").length;
+  const high = state.issues.filter(i=>i.status==="Open"&&i.priority==="High").length;
+  $("#issueCount").textContent = state.issues.length ? `${open} open · ${high} high priority` : "";
+}
+
+/* ---------- render: properties ---------- */
+function propFlags(p){
+  const r1=num(p.rev_current), r0=num(p.rev_prior), occ=num(p.occupancy), dz=daysSince(p.last_booked);
+  let delta=null; if(r1!=null && r0!=null && r0>0) delta = (r1-r0)/r0*100;
+  let sev=0;
+  if(delta!=null){ if(delta<=-15) sev=Math.max(sev,2); else if(delta<0) sev=Math.max(sev,1); }
+  if(occ!=null){ if(occ<50) sev=Math.max(sev,2); else if(occ<65) sev=Math.max(sev,1); }
+  if(dz!=null){ if(dz>45) sev=Math.max(sev,2); else if(dz>21) sev=Math.max(sev,1); }
+  return {delta,occ,dz,sev};
+}
+function deltaHTML(f){
+  if(f.delta==null) return "";
+  const d=f.delta, cls=d<0?"down":(d>0?"up":"flat");
+  return `<span class="${cls} mono">${d<0?"▼":(d>0?"▲":"■")} ${Math.abs(d).toFixed(1)}%</span>${d<=-15?' <span class="pill p-crit">Below LY</span>':(d<0?' <span class="pill p-warn">Below LY</span>':"")}`;
+}
+function occHTML(f){
+  if(f.occ==null) return "";
+  if(f.occ<50) return '<span class="pill p-crit">Low occupancy</span>';
+  if(f.occ<65) return '<span class="pill p-warn">Soft</span>';
+  return '<span class="pill p-good">Healthy</span>';
+}
+function lastHTML(f){
+  if(f.dz==null) return "";
+  if(f.dz>45) return `<span class="pill p-crit">${f.dz}d — stale</span>`;
+  if(f.dz>21) return `<span class="pill p-warn">${f.dz}d ago</span>`;
+  return `<span class="pill p-mute">${f.dz}d ago</span>`;
+}
+function propRowHTML(p){
+  const f=propFlags(p), dis = !state.meeting ? "disabled" : "";
+  return `<tr data-row data-list="properties" data-id="${p.id}" class="${f.sev===2?"sev-crit":(f.sev===1?"sev-warn":"")}">
+    <td><div class="cell"><input class="in" ${dis} style="font-weight:600" data-list="properties" data-id="${p.id}" data-field="unit" value="${esc(p.unit)}" placeholder="Unit name"><span class="flag"></span></div></td>
+    <td class="num"><div class="cell"><span class="money"><s>$</s><input class="in" ${dis} inputmode="decimal" data-visual="1" data-list="properties" data-id="${p.id}" data-field="rev_current" value="${esc(p.rev_current)}" placeholder="0"></span><span class="flag">${deltaHTML(f)}</span></div></td>
+    <td class="num"><div class="cell"><span class="money"><s>$</s><input class="in" ${dis} inputmode="decimal" data-visual="1" data-list="properties" data-id="${p.id}" data-field="rev_prior" value="${esc(p.rev_prior)}" placeholder="0"></span><span class="flag"></span></div></td>
+    <td class="num"><div class="cell"><span class="pct"><input class="in" ${dis} inputmode="decimal" data-visual="1" data-list="properties" data-id="${p.id}" data-field="occupancy" value="${esc(p.occupancy)}" placeholder="0"><s>%</s></span><span class="flag">${occHTML(f)}</span></div></td>
+    <td><div class="cell"><input class="in mono" ${dis} type="date" data-visual="1" data-list="properties" data-id="${p.id}" data-field="last_booked" value="${esc(p.last_booked||"")}"><span class="flag">${lastHTML(f)}</span></div></td>
+    <td class="act"><button class="del" data-act="del" data-list="properties" data-id="${p.id}" title="Delete row" aria-label="Delete row">✕</button></td>
+  </tr>`;
+}
+function refreshPropRow(tr,p){
+  const f=propFlags(p);
+  tr.className = f.sev===2?"sev-crit":(f.sev===1?"sev-warn":"");
+  const flags = tr.querySelectorAll(".flag");
+  flags[1].innerHTML = deltaHTML(f);
+  flags[3].innerHTML = occHTML(f);
+  flags[4].innerHTML = lastHTML(f);
+}
+function renderProps(){
+  $("#propBody").innerHTML = state.properties.length ? state.properties.map(propRowHTML).join("")
+    : `<tr><td colspan="6" class="empty">${state.meeting?"No properties yet. Use <b>+ Add Property</b> to build this week's focus list.":"Start this week's meeting to add properties."}</td></tr>`;
+  renderPropChips();
+}
+function renderPropChips(){
+  if(state.properties.length && !state.properties.some(p=>p.id===state.activeProp)) state.activeProp = state.properties[0].id;
+  if(!state.properties.length) state.activeProp = null;
+  $("#propChips").innerHTML = state.properties.length ? state.properties.map(p=>{
+    const has = ["problem","why","action","decision","owner","follow_up_date"].some(k=>p[k]);
+    return `<button class="chip${p.id===state.activeProp?" on":""}${has?" has":""}" data-act="pick-prop" data-id="${p.id}">${esc(p.unit||"Untitled unit")}<i></i></button>`;
+  }).join("") : "";
+  renderPropNote();
+}
+function renderPropNote(){
+  const el=$("#propNotePanel");
+  if(!state.activeProp){ el.innerHTML = `<div class="empty">Add a property above to record the discussion and decision.</div>`; return; }
+  const p = state.properties.find(x=>x.id===state.activeProp) || {};
+  const id = state.activeProp;
+  el.innerHTML = `<div class="qgrid">
+    <div class="q span2"><label>What is the problem?</label><textarea class="in" rows="2" data-list="properties" data-id="${id}" data-field="problem" data-chip="1" placeholder="State it in one line — numbers, not adjectives">${esc(p.problem)}</textarea></div>
+    <div class="q span2"><label>Why do we think it is happening?</label><textarea class="in" rows="2" data-list="properties" data-id="${id}" data-field="why" data-chip="1" placeholder="Rate position, comp set, minimum stay, listing quality, seasonality…">${esc(p.why)}</textarea></div>
+    <div class="q span2"><label>Recommended action</label><textarea class="in" rows="2" data-list="properties" data-id="${id}" data-field="action" data-chip="1" placeholder="What revenue management proposes">${esc(p.action)}</textarea></div>
+    <div class="q span2 qdec"><label>Final decision</label><textarea class="in" rows="2" data-list="properties" data-id="${id}" data-field="decision" data-chip="1" placeholder="What we actually agreed">${esc(p.decision)}</textarea></div>
+    <div class="q"><label>Person responsible</label><input class="in" data-list="properties" data-id="${id}" data-field="owner" data-chip="1" value="${esc(p.owner)}" placeholder="Account manager"></div>
+    <div class="q"><label>Follow-up date</label><input class="in mono" type="date" data-list="properties" data-id="${id}" data-field="follow_up_date" data-chip="1" value="${esc(p.follow_up_date||"")}"></div>
+    <div class="q span2" style="justify-content:flex-end"><label>&nbsp;</label>
+      <div><button class="btn sm" data-act="to-decision" data-id="${id}">Send to decision log →</button>
+      <span class="hint" style="margin-left:8px">Creates a row in section 4 for ${esc(p.unit||"this unit")}</span></div></div>
+  </div>`;
+  el.querySelectorAll("textarea").forEach(grow);
+}
+
+/* ---------- render: pricing ---------- */
+function priceRowHTML(r){
+  const dis = !state.meeting ? "disabled" : "";
+  return `<tr data-row data-list="pricing" data-id="${r.id}">
+    <td><input class="in" ${dis} style="font-weight:600" data-list="pricing" data-id="${r.id}" data-field="unit" value="${esc(r.unit)}" placeholder="Unit"></td>
+    <td><input class="in" ${dis} data-list="pricing" data-id="${r.id}" data-field="date_range" value="${esc(r.date_range)}" placeholder="e.g. Oct 6 – Oct 19"></td>
+    <td class="num"><span class="money"><s>$</s><input class="in" ${dis} inputmode="decimal" data-list="pricing" data-id="${r.id}" data-field="current_rate" value="${esc(r.current_rate)}" placeholder="0"></span></td>
+    <td class="num g2"><span class="money"><s>$</s><input class="in" ${dis} inputmode="decimal" data-list="pricing" data-id="${r.id}" data-field="market_rate" value="${esc(r.market_rate)}" placeholder="0"></span></td>
+    <td class="num g2"><span class="money"><s>$</s><input class="in" ${dis} inputmode="decimal" data-list="pricing" data-id="${r.id}" data-field="recommended_rate" value="${esc(r.recommended_rate)}" placeholder="0"></span></td>
+    <td class="g2"><select class="in dec d-${esc(r.decision)}" ${dis} data-visual="1" data-list="pricing" data-id="${r.id}" data-field="decision">${opts(DECISIONS,r.decision)}</select></td>
+    <td class="act"><button class="del" data-act="del" data-list="pricing" data-id="${r.id}" title="Delete row" aria-label="Delete row">✕</button></td>
+  </tr>`;
+}
+function renderPricing(){
+  $("#priceBody").innerHTML = state.pricing.length ? state.pricing.map(priceRowHTML).join("")
+    : `<tr><td colspan="7" class="empty">${state.meeting?"No dates under review. Use <b>+ Add Season Pricing Row</b>.":"Start this week's meeting to add pricing rows."}</td></tr>`;
+  priceTally();
+}
+function priceTally(){
+  const c={};
+  state.pricing.forEach(r=>{ c[r.decision]=(c[r.decision]||0)+1; });
+  $("#priceTally").textContent = state.pricing.length
+    ? DECISIONS.filter(d=>c[d]).map(d=>`${c[d]} ${d.toLowerCase()}`).join(" · ")
+    : "";
+}
+
+/* ---------- render: prev actions + decisions ---------- */
+function prevRowHTML(a){
+  return `<tr data-row data-list="decisionsPrev" data-id="${a.id}" class="${a.status==="Completed"?"rowdone":""}">
+    <td><input class="in" style="font-weight:600" data-list="decisionsPrev" data-id="${a.id}" data-field="topic" value="${esc(a.topic)}" placeholder="Property / topic"></td>
+    <td><textarea class="in" rows="1" data-list="decisionsPrev" data-id="${a.id}" data-field="decision" placeholder="What we decided">${esc(a.decision)}</textarea></td>
+    <td><input class="in" data-list="decisionsPrev" data-id="${a.id}" data-field="owner" value="${esc(a.owner)}" placeholder="Owner"></td>
+    <td><input class="in mono" type="date" data-list="decisionsPrev" data-id="${a.id}" data-field="due_date" value="${esc(a.due_date||"")}"></td>
+    <td><select class="in st s-${slug(a.status)}" data-visual="1" data-list="decisionsPrev" data-id="${a.id}" data-field="status">${opts(PSTATUS,a.status)}</select></td>
+    <td><textarea class="in" rows="1" data-list="decisionsPrev" data-id="${a.id}" data-field="result" placeholder="What happened?">${esc(a.result)}</textarea></td>
+    <td class="act"><button class="del" data-act="del" data-list="decisionsPrev" data-id="${a.id}" title="Delete row" aria-label="Delete row">✕</button></td>
+  </tr>`;
+}
+function renderPrev(){
+  $("#prevBody").innerHTML = state.decisionsPrev.length ? state.decisionsPrev.map(prevRowHTML).join("")
+    : `<tr><td colspan="7" class="empty">Nothing outstanding from previous meetings for this track.</td></tr>`;
+  $("#prevBody").querySelectorAll("textarea").forEach(grow);
+  const out = state.decisionsPrev.filter(a=>a.status!=="Completed").length;
+  $("#prevTally").textContent = state.decisionsPrev.length ? `${out} still outstanding of ${state.decisionsPrev.length}` : "";
+}
+function decRowHTML(d){
+  return `<tr data-row data-list="decisionsCurrent" data-id="${d.id}">
+    <td><input class="in" style="font-weight:600" data-list="decisionsCurrent" data-id="${d.id}" data-field="topic" value="${esc(d.topic)}" placeholder="Property / topic"></td>
+    <td><textarea class="in" rows="1" data-list="decisionsCurrent" data-id="${d.id}" data-field="decision" placeholder="The call we made">${esc(d.decision)}</textarea></td>
+    <td><textarea class="in" rows="1" data-list="decisionsCurrent" data-id="${d.id}" data-field="action" placeholder="What has to happen">${esc(d.action)}</textarea></td>
+    <td><input class="in" data-list="decisionsCurrent" data-id="${d.id}" data-field="owner" value="${esc(d.owner)}" placeholder="Owner"></td>
+    <td><input class="in mono" type="date" data-list="decisionsCurrent" data-id="${d.id}" data-field="due_date" value="${esc(d.due_date||"")}"></td>
+    <td class="act"><button class="del" data-act="del" data-list="decisionsCurrent" data-id="${d.id}" title="Delete row" aria-label="Delete row">✕</button></td>
+  </tr>`;
+}
+function renderDecisions(){
+  $("#decBody").innerHTML = state.decisionsCurrent.length ? state.decisionsCurrent.map(decRowHTML).join("")
+    : `<tr><td colspan="6" class="empty">${state.meeting?"No decisions yet. Every issue, property and rate that needs a call ends up here.":"Start this week's meeting to log decisions."}</td></tr>`;
+  $("#decBody").querySelectorAll("textarea").forEach(grow);
+}
+
+/* ---------- summary ---------- */
+function buildSummary(ctx){
+  const {meeting, issues, properties, pricing, decisionsCurrent, decisionsPrev} = ctx;
+  const openIssues = issues.filter(i=>i.status==="Open");
+  const outstanding = decisionsPrev.filter(a=>a.status!=="Completed");
+  const decided = pricing.filter(r=>r.decision);
+  const owners = {};
+  decisionsCurrent.forEach(d=>{ const o=(d.owner||"Unassigned").trim()||"Unassigned"; (owners[o]=owners[o]||[]).push({t:d.topic||"—", due:d.due_date}); });
+  outstanding.forEach(a=>{ const o=(a.owner||"Unassigned").trim()||"Unassigned"; (owners[o]=owners[o]||[]).push({t:(a.topic||"—")+" (carried)", due:a.due_date}); });
+  properties.forEach(p=>{ if(p.owner && p.decision){ const o=p.owner.trim(); (owners[o]=owners[o]||[]).push({t:"Property follow-up", due:p.follow_up_date}); }});
+
+  const li = (t,mm,meta) => `<li><span class="t">${t}</span>${mm?`<span class="m">${mm}</span>`:""}${meta?`<span class="meta">${meta}</span>`:""}</li>`;
+  const none = t => `<div class="none">${t}</div>`;
+
+  const issuesHTML = openIssues.length ? `<ul>${openIssues.map(i=>li(
+      esc(i.text||"(untitled issue)"),
+      i.action?"Action: "+esc(i.action):"",
+      `<span class="pill ${i.priority==="High"?"p-crit":(i.priority==="Medium"?"p-warn":"p-mute")}">${esc(i.priority)}</span>${i.am?`<span class="pill p-mute">${esc(i.am)}</span>`:""}`
+    )).join("")}</ul>` : none("No open burning issues.");
+
+  const propsHTML = properties.length ? `<ul>${properties.map(p=>{
+      const f=propFlags(p);
+      const chips = [
+        f.delta!=null?`<span class="pill ${f.delta<0?"p-crit":"p-good"}">${f.delta<0?"▼":"▲"} ${Math.abs(f.delta).toFixed(1)}% YoY</span>`:"",
+        f.occ!=null?`<span class="pill ${f.occ<50?"p-crit":(f.occ<65?"p-warn":"p-good")}">${f.occ}% occ</span>`:"",
+        f.dz!=null?`<span class="pill ${f.dz>45?"p-crit":(f.dz>21?"p-warn":"p-mute")}">booked ${f.dz}d ago</span>`:"",
+        p.owner?`<span class="pill p-acc">${esc(p.owner)}</span>`:"",
+        p.follow_up_date?`<span class="pill p-mute">follow-up ${fmtDate(p.follow_up_date)}</span>`:""
+      ].join("");
+      return li(esc(p.unit||"Untitled unit"), p.decision?"Decision: "+esc(p.decision):(p.action?"Recommended: "+esc(p.action):""), chips);
+    }).join("")}</ul>` : none("No properties reviewed.");
+
+  const priceHTML = decided.length ? `<ul>${decided.map(r=>li(
+      esc(r.unit||"—")+" · "+esc(r.date_range||"—"),
+      `${r.current_rate?money(r.current_rate):"—"} → ${r.recommended_rate?money(r.recommended_rate):"—"}${r.market_rate?`  (market ${money(r.market_rate)})`:""}`,
+      `<span class="pill ${r.decision==="INCREASE"?"p-good":r.decision==="REDUCE"?"p-warn":r.decision==="PROMOTION"?"p-flame":r.decision==="MONITOR"?"p-acc":"p-mute"}">${esc(r.decision)}</span>`
+    )).join("")}</ul>` : none("No pricing decisions recorded.");
+
+  const prevHTML = outstanding.length ? `<ul>${outstanding.map(a=>li(
+      esc(a.topic||"—"), esc(a.decision||""),
+      `<span class="pill ${a.status==="Carried Forward"?"p-flame":a.status==="In Progress"?"p-acc":"p-warn"}">${esc(a.status)}</span>${a.owner?`<span class="pill p-mute">${esc(a.owner)}</span>`:""}${a.due_date?`<span class="pill p-mute">due ${fmtDate(a.due_date)}</span>`:""}`
+    )).join("")}</ul>` : none("Everything from previous meetings is closed. 🎉");
+
+  const decHTML = decisionsCurrent.length ? `<ul>${decisionsCurrent.map(d=>li(
+      esc(d.topic||"—"), esc(d.decision||""),
+      `${d.action?`<span class="pill p-acc">${esc(d.action)}</span>`:""}${d.owner?`<span class="pill p-mute">${esc(d.owner)}</span>`:""}${d.due_date?`<span class="pill p-mute">due ${fmtDate(d.due_date)}</span>`:""}`
+    )).join("")}</ul>` : none("No decisions logged — the meeting has no output yet.");
+
+  const ownerHTML = Object.keys(owners).length ? `<ul class="owners">${Object.keys(owners).sort().map(o=>{
+      const items = owners[o];
+      const dues = items.map(i=>i.due).filter(Boolean).sort();
+      return `<li><span class="t">${esc(o)}</span><span class="meta"><span class="pill p-acc">${items.length} item${items.length>1?"s":""}</span>${dues.length?`<span class="pill p-mute">next due ${fmtDate(dues[0])}</span>`:`<span class="pill p-warn">no due date</span>`}</span></li>`;
+    }).join("")}</ul>` : none("No owners assigned yet.");
+
+  const head = `<div class="sumhead">
+    <div>
+      <span class="pill ${meeting.status==="completed"?"p-good":"p-acc"}">${meeting.status==="completed"?"Meeting complete":"In progress"}</span>
+      <h2 style="margin-top:8px">${fmtDate(meeting.meeting_date)} · ${esc(trackLabel(meeting.track))}</h2>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>${decisionsCurrent.length}</b><span>Decisions</span></div>
+      <div class="kpi"><b>${openIssues.length}</b><span>Open issues</span></div>
+      <div class="kpi"><b>${decided.length}</b><span>Rate calls</span></div>
+      <div class="kpi"><b>${outstanding.length}</b><span>Carried over</span></div>
+    </div>
+  </div>`;
+
+  const tools = ctx.forHistory ? "" : `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
+      <button class="btn" data-act="copy-sum">Copy summary as text</button>
+      <button class="btn" data-act="goto" data-step="3">Back to decision log</button>
+      <button class="btn primary" id="btnNew2">+ Start next meeting</button>
+    </div>`;
+
+  return head + tools + `<div class="sumgrid">
+    <div class="sumcard"><h3>Burning issues requiring follow-up</h3>${issuesHTML}</div>
+    <div class="sumcard"><h3>Properties discussed</h3>${propsHTML}</div>
+    <div class="sumcard"><h3>Pricing decisions</h3>${priceHTML}</div>
+    <div class="sumcard"><h3>Outstanding previous actions</h3>${prevHTML}</div>
+    <div class="sumcard"><h3>New decisions</h3>${decHTML}</div>
+    <div class="sumcard"><h3>Action owners &amp; due dates</h3>${ownerHTML}</div>
+  </div>`;
+}
+function summaryText(ctx){
+  const {meeting, issues, properties, pricing, decisionsCurrent, decisionsPrev} = ctx;
+  const L=[];
+  L.push(`${trackLabel(meeting.track).toUpperCase()} — ${meeting.meeting_date}`);
+  L.push("");
+  L.push("OPEN BURNING ISSUES");
+  const oi=issues.filter(i=>i.status==="Open");
+  L.push(oi.length?oi.map(i=>`  • [${i.priority}] ${i.text}${i.am?" ("+i.am+")":""}${i.action?" → "+i.action:""}`).join("\n"):"  (none)");
+  L.push("");
+  L.push("PROPERTIES DISCUSSED");
+  L.push(properties.length?properties.map(p=>{
+    const f=propFlags(p);
+    return `  • ${p.unit} — current ${money(p.rev_current)} vs prior ${money(p.rev_prior)}${f.delta!=null?` (${f.delta>0?"+":""}${f.delta.toFixed(1)}%)`:""}, occ ${p.occupancy||"—"}%, last booked ${p.last_booked||"—"}${p.decision?`\n      Decision: ${p.decision}${p.owner?" — "+p.owner:""}${p.follow_up_date?" by "+p.follow_up_date:""}`:""}`;
+  }).join("\n"):"  (none)");
+  L.push("");
+  L.push("PRICING DECISIONS");
+  L.push(pricing.length?pricing.map(r=>`  • ${r.unit} ${r.date_range}: ${money(r.current_rate)} → ${money(r.recommended_rate)} (market ${money(r.market_rate)}) = ${r.decision}`).join("\n"):"  (none)");
+  L.push("");
+  L.push("OUTSTANDING PREVIOUS ACTIONS");
+  const out=decisionsPrev.filter(a=>a.status!=="Completed");
+  L.push(out.length?out.map(a=>`  • ${a.topic}: ${a.decision} — ${a.owner||"unassigned"}, due ${a.due_date||"—"} [${a.status}]${a.result?" — "+a.result:""}`).join("\n"):"  (all closed)");
+  L.push("");
+  L.push("NEW DECISIONS");
+  L.push(decisionsCurrent.length?decisionsCurrent.map(d=>`  • ${d.topic}: ${d.decision} — ACTION: ${d.action||"—"} — ${d.owner||"unassigned"}, due ${d.due_date||"—"}`).join("\n"):"  (none)");
+  return L.join("\n");
+}
+function renderSummary(){
+  if(!state.meeting){ $("#summary").innerHTML = `<div class="banner"><b>No meeting yet</b>Start this week's meeting to see a live summary here.</div>`; return; }
+  $("#summary").innerHTML = buildSummary({meeting:state.meeting, issues:state.issues, properties:state.properties,
+    pricing:state.pricing, decisionsCurrent:state.decisionsCurrent, decisionsPrev:state.decisionsPrev, forHistory:false});
+}
+
+/* ---------- navigation ---------- */
+function renderRail(){
+  $("#rail").innerHTML = STEPS.map((s,i)=>
+    `<button class="step${i===state.step?" active":""}${i<state.step?" done":""}" data-act="goto" data-step="${i}">
+      <span class="n">${s.n}</span><span class="lbl">${s.label}</span></button>`).join("");
+  $("#railProg").style.width = ((state.step)/(STEPS.length-1)*100).toFixed(1)+"%";
+}
+function renderStep(){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("on", +p.dataset.panel===state.step));
+  renderRail();
+  const s=STEPS[state.step];
+  $("#stepKicker").textContent = state.step<4?`Section ${state.step+1} of 4`:"Wrap-up";
+  $("#stepName").textContent = s.full;
+  $("#btnPrev").disabled = state.step===0;
+  $("#btnPrev").style.opacity = state.step===0?.45:1;
+  const nb=$("#btnNext");
+  if(state.step<3){ nb.textContent = "Next: "+STEPS[state.step+1].label+" →"; nb.style.display=""; }
+  else if(state.step===3){ nb.textContent = "Review summary →"; nb.style.display=""; }
+  else { nb.style.display="none"; }
+  if(state.step===4) renderSummary();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function goto(i){
+  state.step = Math.max(0, Math.min(STEPS.length-1, i));
+  renderStep();
+}
+
+/* ---------- header state ---------- */
+function renderHeader(){
+  $("#trackSel").value = state.track;
+  $("#mDate").value = state.meeting ? (state.meeting.meeting_date||"") : todayISO();
+  $("#mDate").disabled = !state.meeting;
+  const pill = $("#statusPill");
+  if(state.meeting){
+    pill.className = "statuspill live";
+    pill.innerHTML = `<i></i> ${state.meeting.status==="completed"?"Completed":"In progress"}`;
+  } else {
+    pill.className = "statuspill none";
+    pill.textContent = "No active meeting";
+  }
+  $("#btnStart").disabled = !!(state.meeting && state.meeting.status==="in_progress");
+  $("#btnStart").textContent = state.meeting ? "Start New Meeting" : "Start Meeting";
+  $("#btnStop").disabled = !state.meeting || state.meeting.status==="completed";
+  $("#btnSave").disabled = !state.meeting;
+}
+
+/* ---------- modal ---------- */
+let modalOnOk=null;
+function openModal(html, onOk){
+  $("#modal").innerHTML = html;
+  modalOnOk = onOk || null;
+  $("#scrim").classList.add("on");
+  const f = $("#modal").querySelector("button[data-ok],button[data-cancel]");
+  if(f) f.focus();
+}
+function closeModal(){ $("#scrim").classList.remove("on"); modalOnOk=null; }
+$("#scrim").addEventListener("click", e=>{ if(e.target.id==="scrim") closeModal(); });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && $("#scrim").classList.contains("on")) closeModal(); });
+$("#modal").addEventListener("click", e=>{
+  const ok = e.target.closest("[data-ok]"), cx = e.target.closest("[data-cancel]"), hi = e.target.closest("[data-hist]");
+  if(cx) closeModal();
+  else if(ok){ const fn=modalOnOk; closeModal(); if(fn) fn(); }
+  else if(hi) openHistoryEntry(hi.dataset.hist);
+});
+
+/* ---------- history ---------- */
+async function openHistory(){
+  chip("saving");
+  try{
+    const {data, error} = await sb.from("meetings").select("*").eq("track", state.track)
+      .order("meeting_date",{ascending:false}).limit(40);
+    if(error) throw error;
+    const rows = (data||[]).map(m=>`<div class="hist">
+        <b>${fmtDate(m.meeting_date)}</b>
+        <span class="pill ${m.status==="completed"?"p-good":"p-acc"}">${m.status==="completed"?"Completed":"In progress"}</span>
+        <button class="btn sm" data-hist="${m.id}">Open</button></div>`).join("")
+      || `<div class="hist"><span class="c">No meetings recorded yet for ${esc(trackLabel(state.track))}.</span></div>`;
+    openModal(`<h3>${esc(trackLabel(state.track))} — history</h3><div class="histlist">${rows}</div>
+      <div class="mf"><button class="btn" data-cancel>Close</button></div>`);
+    chip("saved");
+  }catch(e){ toastErr(e); }
+}
+async function openHistoryEntry(meetingId){
+  chip("saving");
+  try{
+    const {data:m, error:me} = await sb.from("meetings").select("*").eq("id", meetingId).single();
+    if(me) throw me;
+    const kids = await fetchMeetingChildren(meetingId);
+    const decs = await fetchDecisions(m.track, meetingId);
+    const html = buildSummary({meeting:m, issues:kids.issues, properties:kids.properties, pricing:kids.pricing,
+      decisionsCurrent:decs.current, decisionsPrev:decs.prev, forHistory:true});
+    openModal(`<h3>${fmtDate(m.meeting_date)} — meeting record</h3><div class="mb">${html}</div>
+       <div class="mf"><button class="btn" data-cancel>Close</button></div>`);
+    chip("saved");
+  }catch(e){ toastErr(e); }
+}
+
+/* ---------- events ---------- */
+$("#trackSel").addEventListener("change", e=> loadTrack(e.target.value));
+$("#mDate").addEventListener("change", e=>{
+  if(!state.meeting) return;
+  state.meeting.meeting_date = e.target.value;
+  debounced("meeting:date", async ()=>{
+    chip("saving");
+    try{ const {error} = await sb.from("meetings").update({meeting_date:e.target.value}).eq("id", state.meeting.id); if(error) throw error; chip("saved"); }
+    catch(err){ toastErr(err); }
+  }, 400);
+});
+$("#btnStart").addEventListener("click", ()=>{
+  if(state.meeting && state.meeting.status==="in_progress"){
+    openModal(`<h3>Start a new meeting?</h3><div class="mb">There's already a meeting in progress for
+      <b>${esc(trackLabel(state.track))}</b> (${fmtDate(state.meeting.meeting_date)}). Starting a new one leaves that one as-is (you can still Stop it later) — usually you want to <b>Stop Meeting</b> first.</div>
+      <div class="mf"><button class="btn" data-cancel>Cancel</button><button class="btn primary" data-ok>Start anyway</button></div>`, startMeeting);
+  } else startMeeting();
+});
+$("#btnStop").addEventListener("click", ()=>{
+  openModal(`<h3>Stop this week's meeting?</h3><div class="mb">This marks <b>${fmtDate(state.meeting.meeting_date)}</b> for
+    <b>${esc(trackLabel(state.track))}</b> as completed and moves it into history. Any decision that isn't marked Completed will
+    show up as outstanding next time. You can still edit it afterward from History.</div>
+    <div class="mf"><button class="btn" data-cancel>Cancel</button><button class="btn primary" data-ok>Stop meeting</button></div>`, stopMeetingConfirmed);
+});
+$("#btnSave").addEventListener("click", ()=>{ chip("saved"); toast("All changes saved"); });
+$("#btnHistory").addEventListener("click", openHistory);
+document.addEventListener("click", e=>{ if(e.target.id==="btnNew2"){ closeModalIfAny(); $("#btnStart").click(); } });
+function closeModalIfAny(){}
+
+document.addEventListener("input", e=>{
+  const el = e.target;
+  if(el.id==="notes"){
+    if(!state.meeting) return;
+    debounced("meeting:notes", async ()=>{
+      chip("saving");
+      try{ const {error} = await sb.from("meetings").update({notes:el.value}).eq("id", state.meeting.id); if(error) throw error; chip("saved"); }
+      catch(err){ toastErr(err); }
+    }, 500);
+    return;
+  }
+  const {list,id,field} = el.dataset;
+  if(!list||!id||!field) return;
+  const item = findItem(list,id);
+  if(!item) return;
+  let val = el.value;
+  if(["rev_current","rev_prior","occupancy","current_rate","market_rate","recommended_rate"].includes(field)) { item[field]=val; }
+  else item[field] = val;
+  if(el.tagName==="TEXTAREA") grow(el);
+  if(el.dataset.visual) applyVisual(el,list,id,item);
+  if(el.dataset.chip) refreshChipState(id);
+  if(list==="properties" && field==="unit"){ refreshChipLabel(id, el.value); }
+  const isNumeric = ["rev_current","rev_prior","occupancy","current_rate","market_rate","recommended_rate"].includes(field);
+  updateField(list, id, field, isNumeric ? num(val) : val);
+});
+document.addEventListener("change", e=>{
+  const el=e.target; const {list,id,field}=el.dataset;
+  if(!list||!id||!field) return;
+  const item=findItem(list,id); if(!item) return;
+  const isNumeric = ["rev_current","rev_prior","occupancy","current_rate","market_rate","recommended_rate"].includes(field);
+  const val = isNumeric ? num(el.value) : el.value;
+  item[field]=val;
+  if(el.dataset.visual) applyVisual(el,list,id,item);
+  if(el.dataset.chip) refreshChipState(id);
+  (async ()=>{
+    chip("saving");
+    try{
+      const table = TABLES[list];
+      const patch = {[field]: val};
+      if(table==="decisions") patch.updated_at = new Date().toISOString();
+      const {error} = await sb.from(table).update(patch).eq("id", id);
+      if(error) throw error;
+      chip("saved");
+    }catch(err){ toastErr(err); }
+  })();
+});
+function applyVisual(el,list,id,item){
+  if(list==="issues"){
+    const row = el.closest("[data-row]");
+    row.className = "issue pri-"+item.priority+(item.status==="Resolved"?" resolved":"");
+    const open = state.issues.filter(i=>i.status==="Open").length;
+    const high = state.issues.filter(i=>i.status==="Open"&&i.priority==="High").length;
+    $("#issueCount").textContent = `${open} open · ${high} high priority`;
+  } else if(list==="properties"){
+    refreshPropRow(el.closest("tr"), item);
+  } else if(list==="pricing"){
+    el.className = "in dec d-"+item.decision; priceTally();
+  } else if(list==="decisionsPrev"){
+    el.className = "in st s-"+slug(item.status);
+    el.closest("tr").className = item.status==="Completed"?"rowdone":"";
+    const out = state.decisionsPrev.filter(a=>a.status!=="Completed").length;
+    $("#prevTally").textContent = `${out} still outstanding of ${state.decisionsPrev.length}`;
+  }
+}
+function refreshChipState(id){
+  const chipEl = document.querySelector(`.chip[data-id="${id}"]`); if(!chipEl) return;
+  const p = state.properties.find(x=>x.id===id) || {};
+  chipEl.classList.toggle("has", ["problem","why","action","decision","owner","follow_up_date"].some(k=>p[k]));
+}
+function refreshChipLabel(id,val){
+  const chipEl = document.querySelector(`.chip[data-id="${id}"]`); if(!chipEl) return;
+  chipEl.childNodes[0].nodeValue = val || "Untitled unit";
+}
+document.addEventListener("click", e=>{
+  const b = e.target.closest("[data-act]"); if(!b) return;
+  const act = b.dataset.act;
+  if(act==="add-issue"){
+    if(!state.meeting){ toast("Start this week's meeting first"); return; }
+    insertRow("issues", {meeting_id:state.meeting.id, text:"", am:"", priority:"Medium", status:"Open", action:"", position:state.issues.length})
+      .then(row=>{ if(row){ renderIssues(); focusLast("#issueList", "textarea"); } });
+  }
+  else if(act==="add-prop"){
+    if(!state.meeting){ toast("Start this week's meeting first"); return; }
+    insertRow("properties", {meeting_id:state.meeting.id, unit:"", rev_current:null, rev_prior:null, occupancy:null, last_booked:null, position:state.properties.length})
+      .then(row=>{ if(row){ state.activeProp=row.id; renderProps(); focusLast("#propBody","input"); } });
+  }
+  else if(act==="add-price"){
+    if(!state.meeting){ toast("Start this week's meeting first"); return; }
+    insertRow("pricing", {meeting_id:state.meeting.id, unit:"", date_range:"", current_rate:null, market_rate:null, recommended_rate:null, decision:"MONITOR", position:state.pricing.length})
+      .then(row=>{ if(row){ renderPricing(); focusLast("#priceBody","input"); } });
+  }
+  else if(act==="add-prev"){
+    insertRow("decisionsPrev", {track:state.track, origin_meeting_id:null, topic:"", decision:"", action:"", owner:"", due_date:null, status:"Pending", result:""})
+      .then(row=>{ if(row){ renderPrev(); focusLast("#prevBody","input"); } });
+  }
+  else if(act==="add-dec"){
+    if(!state.meeting){ toast("Start this week's meeting first"); return; }
+    insertRow("decisionsCurrent", {track:state.track, origin_meeting_id:state.meeting.id, topic:"", decision:"", action:"", owner:"", due_date:null, status:"Pending", result:""})
+      .then(row=>{ if(row){ renderDecisions(); focusLast("#decBody","input"); } });
+  }
+  else if(act==="del"){
+    const {list,id}=b.dataset;
+    deleteRow(list, id).then(()=>{
+      if(list==="properties" && state.activeProp===id) state.activeProp = state.properties.length?state.properties[0].id:null;
+      ({issues:renderIssues, properties:renderProps, pricing:renderPricing, decisionsPrev:renderPrev, decisionsCurrent:renderDecisions})[list]();
+    });
+  }
+  else if(act==="pick-prop"){ state.activeProp = b.dataset.id; renderPropChips(); }
+  else if(act==="to-decision"){
+    const id=b.dataset.id, p=state.properties.find(x=>x.id===id)||{};
+    if(!state.meeting) return;
+    insertRow("decisionsCurrent", {track:state.track, origin_meeting_id:state.meeting.id, topic:p.unit||"",
+      decision:p.decision||p.action||"", action:p.action||"", owner:p.owner||"", due_date:p.follow_up_date||null, status:"Pending", result:""})
+      .then(row=>{ if(row){ renderDecisions(); toast(`Added "${p.unit||"property"}" to the decision log`); } });
+  }
+  else if(act==="goto"){ goto(+b.dataset.step); }
+  else if(act==="copy-sum"){
+    copyText(summaryText({meeting:state.meeting, issues:state.issues, properties:state.properties, pricing:state.pricing,
+      decisionsCurrent:state.decisionsCurrent, decisionsPrev:state.decisionsPrev}));
+  }
+});
+function focusLast(sel, tag){
+  const rows = document.querySelectorAll(sel+" [data-row]");
+  const last = rows[rows.length-1]; if(!last) return;
+  const f = last.querySelector(tag); if(f){ f.focus(); }
+}
+function grow(el){ el.style.height="auto"; el.style.height=(el.scrollHeight+2)+"px"; }
+let toastEl=null,toastT=null;
+function toast(msg){
+  if(!toastEl){
+    toastEl=document.createElement("div");
+    toastEl.style.cssText="position:fixed;left:50%;transform:translateX(-50%);bottom:70px;z-index:120;background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:999px;font-size:13px;font-weight:500;box-shadow:0 8px 24px -10px rgba(0,0,0,.5)";
+    document.body.appendChild(toastEl);
+  }
+  toastEl.textContent=msg; toastEl.style.display="block";
+  clearTimeout(toastT); toastT=setTimeout(()=>{toastEl.style.display="none";},2200);
+}
+function copyText(txt){
+  const ta=document.createElement("textarea");
+  ta.value=txt; ta.style.cssText="position:fixed;opacity:0;top:0;left:0";
+  document.body.appendChild(ta); ta.select();
+  let ok=false;
+  try{ ok=document.execCommand("copy"); }catch(e){}
+  document.body.removeChild(ta);
+  if(!ok && navigator.clipboard){ navigator.clipboard.writeText(txt).then(()=>toast("Summary copied"),()=>toast("Copy blocked — select the summary manually")); return; }
+  toast(ok?"Summary copied to clipboard":"Copy blocked — select the summary manually");
+}
+
+/* ---------- boot ---------- */
+function renderAll(){
+  renderHeader();
+  $("#notes").value = state.meeting ? (state.meeting.notes || "") : "";
+  $("#notes").disabled = !state.meeting;
+  $("#notes").placeholder = state.meeting ? "Round-robin notes, context, anything raised verbally…" : "Click “Start Meeting” to begin this week's session.";
+  grow($("#notes"));
+  renderIssues(); renderProps(); renderPricing(); renderPrev(); renderDecisions();
+  renderStep();
+}
+$("#btnNext").addEventListener("click", ()=>goto(state.step+1));
+$("#btnPrev").addEventListener("click", ()=>goto(state.step-1));
+loadTrack(state.track);
+</script>
+
+</body></html>
